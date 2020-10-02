@@ -1,4 +1,5 @@
 import pyrebase
+import urllib
 
 firebaseConfig = {
     "apiKey": "AIzaSyD7yguTY2u6iGiHKQOCUo-QARhpuslMwrU",
@@ -36,7 +37,25 @@ storage = firebase.storage()
 #         print("Email already exists")
 
 # Storage
+# file is which file i want to upload.
+# cloudfile name is just the name in the database. for ex: hello.txt on local computer. i could say its actually mainText.txt and that's what the db will say
 
-filename = input("Enter filename: ")
-cloudfilename = input("Enter filename of file on cloud: ")
-storage.child(cloudfilename).put(filename)
+# UPLOAD
+# filename = input("Enter filename: ")
+# cloudfilename = input("Enter filename of file on cloud: ")
+# storage.child(cloudfilename).put(filename)
+
+# print(storage.child(cloudfilename).get_url(None))
+
+# DOWNLOAD
+# how to get a file from the cloud
+# cloudfilename = input("Enter the name of file I want to download: ")
+# storage.child(cloudfilename).download("", "downloaded.txt")
+# first entry is empty string because this is the directory we are downloadinig it.
+
+
+# reading file
+cloudfilename = input("Enter the name of file you want to download: ")
+url = storage.child(cloudfilename).get_url(None)
+f = urllib.request.urlopen(url).read()
+print(f)
