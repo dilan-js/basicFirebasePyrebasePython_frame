@@ -75,3 +75,11 @@ db = firebase.database()
 #     if person.val()["name"] == "Mark":
 #         db.child("people").child(person.key()).update({"name": "Jane"})
 
+# DELETE DATA
+# db.child("people").child("myownid").child("age").remove()
+
+# people = db.child("people").get()
+# for person in people.each():
+#     if person.val()["name"] == "Jane":
+#         print("FOUND MARY")
+#         db.child("people").child(person.key()).child("employed").remove()
