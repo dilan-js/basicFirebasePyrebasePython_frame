@@ -7,6 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
 
+from School import School
+
 firebaseConfig = {
     "apiKey": "AIzaSyD7yguTY2u6iGiHKQOCUo-QARhpuslMwrU",
     "authDomain": "rolodeck-a782f.firebaseapp.com",
@@ -18,7 +20,7 @@ firebaseConfig = {
 }
 
 firebase = pyrebase.initialize_app(firebaseConfig)
-
+db = firebase.database()
 auth = firebase.auth()
 storage = firebase.storage()
 
@@ -27,6 +29,47 @@ driver = webdriver.Chrome(PATH)
 driver.get("https://explorecourses.stanford.edu/")
 print(driver.title)
 
+
+try:
+    main = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "mainContent"))
+    )
+
+    departments = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "departmentsContainer"))
+    )
+    schools = departments.find_elements_by_tag_name("h2")
+    # links = main_find_elements_by_
+    # departments = main.find_elements_by_class_name("departmentsContainer")
+    # subjects = departments.find_elements_by_tag_name("h2")
+    subjects = departments.find_elements_by_tag_name("ul")
+    links = departments.find_elements_by_tag_name("a")
+
+    # for department in departments:
+
+
+except:
+    driver.quit()
+
+
+# for school in schools:
+# departmentName = school.text
+# db.child("department").child(departmentName).set(departmentName)
+# print(school.text)
+
+listOfSubjects = {}
+for i in range(len(schools)):
+    schoolName = schools[i].text
+    schoolID = i
+    school = School(schoolName, schoolID, {})
+    school.addSubjectsToSchool()
+
+
+for subject in subjects:
+    print(subject.text)
+
+
+driver.quit()
 
 # email = input("email?:")
 # password = input("password?:")
@@ -74,7 +117,7 @@ print(driver.title)
 
 
 # DATABASE
-db = firebase.database()
+# db = firebase.database()
 # data = {"age": 40, "address": "new York", "employed": True, "name": "John Smith"}
 # db.child("people").child("myownid").set(data)
 
