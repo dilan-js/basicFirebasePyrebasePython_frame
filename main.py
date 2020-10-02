@@ -55,7 +55,23 @@ storage = firebase.storage()
 
 
 # reading file
-cloudfilename = input("Enter the name of file you want to download: ")
-url = storage.child(cloudfilename).get_url(None)
-f = urllib.request.urlopen(url).read()
-print(f)
+# cloudfilename = input("Enter the name of file you want to download: ")
+# url = storage.child(cloudfilename).get_url(None)
+# f = urllib.request.urlopen(url).read()
+# print(f)
+
+
+# DATABASE
+db = firebase.database()
+# data = {"age": 40, "address": "new York", "employed": True, "name": "John Smith"}
+# db.child("people").child("myownid").set(data)
+
+# # Update UPDATE
+# db.child("people").child("myownid").update({"name": "Mark"})
+
+# people = db.child("people").get()
+# # # to iterate, we must use .each()
+# for person in people.each():
+#     if person.val()["name"] == "Mark":
+#         db.child("people").child(person.key()).update({"name": "Jane"})
+
