@@ -1,5 +1,11 @@
 import pyrebase
 import urllib
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+import time
 
 firebaseConfig = {
     "apiKey": "AIzaSyD7yguTY2u6iGiHKQOCUo-QARhpuslMwrU",
@@ -15,6 +21,12 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 
 auth = firebase.auth()
 storage = firebase.storage()
+
+PATH = "./chromedriver"
+driver = webdriver.Chrome(PATH)
+driver.get("https://explorecourses.stanford.edu/")
+print(driver.title)
+
 
 # email = input("email?:")
 # password = input("password?:")
@@ -83,3 +95,29 @@ db = firebase.database()
 #     if person.val()["name"] == "Jane":
 #         print("FOUND MARY")
 #         db.child("people").child(person.key()).child("employed").remove()
+
+# READ DATA:
+
+# data1 = {"address": "LA", "age": 29, "employed": True, "name": "Jane"}
+# data2 = {"address": "Boston", "age": 50, "employed": False, "name": "Timothy"}
+# data3 = {"address": "fort Worth", "age": 17, "employed": True, "name": "Raven"}
+# people = db.child("people").order_by_child("age").equal_to(50).get()
+# people = (
+#     db.child("people")
+#     .order_by_child("age")
+#     .start_at(17)
+#     .end_at(30)
+#     .limit_to_last(1)
+#     .get()
+# )
+
+# start at is >=
+# end at is <=
+
+
+# for person in people.each():
+#     print(person.val())
+
+# we have to index the columns in the rules section so we can
+# filter database entries.
+
